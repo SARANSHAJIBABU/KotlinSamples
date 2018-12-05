@@ -1,6 +1,6 @@
 package kt.nullability
 
-import jdk.nashorn.internal.objects.NativeString.substring
+//Todo All nullability operators are short hand operators
 
 fun main(args: Array<String>){
     println("Hello World")
