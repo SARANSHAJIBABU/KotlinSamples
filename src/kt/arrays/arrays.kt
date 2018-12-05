@@ -46,4 +46,9 @@ fun main(args:Array<String>){
         print(i)
     }
 
+
+    //Arrays created and initialized with nulls
+    val arr1 = arrayOfNulls<Int>(5)
+    val arr2 = arrayOfNulls<Int?>(5)
+
 }
