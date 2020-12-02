@@ -42,20 +42,9 @@ fun main(){
     )
 
     //transform(store)
-
-    val paidReceipts = store.receipts.filter {
-        it.isPaid
-    }
-
-    println(paidReceipts)
-
-    val paidUnpaid = store.receipts.partition {
-        it.isPaid
-    }
-
-    println(paidUnpaid)
-
-
+    filter(store,worker1,worker2)
+    //validate(store)
+    //lookUp(store)
 
 }
 
@@ -84,4 +73,80 @@ private fun transform(store: Store){
     println(pricesOfAllProducts)
 }
 
+private fun filter(store: Store,worker1: Worker, worker2: Worker){
+    //Filters out and give receipts which are paid
+    val paidReceipts = store.receipts.filter {
+        it.isPaid
+    }
+
+    println(paidReceipts)
+
+    //Partition will create a Pair<List<Receipt>,List<Receipt>>
+    val paidUnpaid = store.receipts.partition {
+        it.isPaid
+    }
+    println(paidUnpaid)
+
+    val (paid,unpaid) = paidUnpaid
+    println(paid)
+    println(unpaid)
+
+    //groupBy returns a map of (seller,List<Receipt>)
+    val soldBy = store.receipts.groupBy {
+        it.seller
+    }
+    println(soldBy[worker1])
+    println(soldBy[worker2])
+
+    val firstReceipt = store.receipts.take(1)
+
+    val allExceptFirst = store.receipts.drop(1)
+
+    val distinct = store.receipts.distinct()
+
+    //Collect until first nonpaid item
+    val takeWhile = store.receipts.takeWhile {
+        it.isPaid
+    }
+    println(takeWhile)
+
+    val dropWhile = store.receipts.dropWhile {
+        it.isPaid
+    }
+    println(dropWhile)
+}
+
+private fun validate(store: Store){
+    val areThereNoReceipts = store.receipts.isEmpty()
+    println(areThereNoReceipts)
+
+    val allPaid = store.receipts.all {
+        it.isPaid
+    }
+    println(allPaid)
+
+    val nonePaid = store.receipts.none{
+        it.isPaid
+    }
+    println(nonePaid)
+
+    val anyPaid = store.receipts.any {
+        it.isPaid
+    }
+    println(anyPaid)
+}
+
+private fun lookUp(store: Store){
+
+    val firstPaidRecipt = store.receipts.first { it.isPaid }
+    println(firstPaidRecipt)
+
+    val firstPaidOrNull = store.receipts.firstOrNull { it.isPaid }
+    println(firstPaidOrNull)
+
+    val lastUnpaid = store.receipts.last {
+        !it.isPaid
+    }
+    println(lastUnpaid)
+}
 
